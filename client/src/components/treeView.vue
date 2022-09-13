@@ -1,116 +1,33 @@
 <template>
     <v-list dense>
-        <v-list-item>
+      <v-list-group
+          v-for="item in items"
+          :key="item.title"
+          v-model="item.active"
+          :prepend-icon="item.action"
+          no-action
+          sub-group
+      >
+        <template v-slot:activator>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title"></v-list-item-title>
+          </v-list-item-content>
+        </template>
+
+        <v-list-item
+            v-for="child in item.items"
+            :key="child.title"
+            link
+        >
+
             <v-list-item-icon>
-                <v-icon>mdi-home</v-icon>
+              <v-icon v-text="child.icon"></v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Menu</v-list-item-title>
+            <v-list-item-title v-text="child.title"></v-list-item-title>
+
+
         </v-list-item>
-
-        <!--Statystyka-->
-        <v-list-group
-                prepend-icon="mdi-chart-areaspline-variant"
-                value="true"
-        >
-            <template v-slot:activator>
-                <v-list-item-title>Statystyka</v-list-item-title>
-            </template>
-            <v-list-item
-                    link
-                    :to="{name: 'chartsLine'}">
-                <v-list-item-content>
-                    <v-list-item-title v-text="statystyka[0].text"></v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                    <v-icon v-text="statystyka[0].icon"></v-icon>
-                </v-list-item-icon>
-            </v-list-item>
-            <v-list-item
-                    link
-                    :to="{name: 'failurePreMonth'}">
-                <v-list-item-content>
-                    <v-list-item-title v-text="statystyka[1].text"></v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                    <v-icon v-text="statystyka[1].icon"></v-icon>
-                </v-list-item-icon>
-            </v-list-item>
-        </v-list-group>
-
-        <v-list-group v-if="adminMenu"
-                prepend-icon="mdi-account-multiple"
-                value="true"
-        >
-            <template v-slot:activator>
-                <v-list-item-title>Użytkownicy</v-list-item-title>
-            </template>
-            <v-list-item
-                    sub-group
-                    link
-                    :to="{name: 'register'}">
-                <v-list-item-content>
-                    <v-list-item-title v-text="user[0].text"></v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                    <v-icon v-text="user[0].icon"></v-icon>
-                </v-list-item-icon>
-            </v-list-item>
-        </v-list-group>
-
-        <!--&lt;!&ndash;Users&ndash;&gt;
-        <v-list-group
-                prepend-icon="account_circle"
-                value="true"
-        >
-            <template v-slot:activator>
-                <v-list-item-title>Users</v-list-item-title>
-            </template>
-
-            <v-list-group
-                    no-action
-                    sub-group
-                    value="true"
-            >
-                <template v-slot:activator>
-                    <v-list-item-content>
-                        <v-list-item-title>Admin</v-list-item-title>
-                    </v-list-item-content>
-                </template>
-
-                <v-list-item
-                        v-for="(admin, i) in admins"
-                        :key="i"
-                        link
-                >
-                    <v-list-item-title v-text="admin[0]"></v-list-item-title>
-                    <v-list-item-icon>
-                        <v-icon v-text="admin[1]"></v-icon>
-                    </v-list-item-icon>
-                </v-list-item>
-
-            </v-list-group>
-
-            <v-list-group
-                    sub-group
-                    no-action
-            >
-                <template v-slot:activator>
-                    <v-list-item-content>
-                        <v-list-item-title>Actions</v-list-item-title>
-                    </v-list-item-content>
-                </template>
-                <v-list-item
-                        v-for="(crud, i) in cruds"
-                        :key="i"
-                        @click="ZZZZ"
-                >
-                    <v-list-item-title v-text="crud[0]"></v-list-item-title>
-                    <v-list-item-action>
-                        <v-icon v-text="crud[1]"></v-icon>
-                    </v-list-item-action>
-                </v-list-item>
-            </v-list-group>
-        </v-list-group>-->
+      </v-list-group>
     </v-list>
 </template>
 
@@ -121,13 +38,48 @@
         data() {
             return {
                 adminMenu: false,
-            statystyka: [
-                { text: 'Suma Awarii', icon: 'mdi-chart-gantt' },
-                { text: 'Rok', icon: 'mdi-chart-line' }
-            ],
-            user: [
-                {text: 'Nowy', icon: 'mdi-account-plus'}
-                ],
+              items: [
+                {
+                  action: 'mdi-ticket',
+                  items: [{ title: 'List Item' }],
+                  title: 'Attractions',
+                },
+                {
+                  action: 'mdi-silverware-fork-knife',
+                  active: true,
+                  items: [
+                    { title: 'Breakfast & brunch', icon: 'mdi-nut' },
+                    { title: 'New American', icon: 'mdi-nut' },
+                    { title: 'Sushi', icon: 'mdi-nut'},
+                  ],
+                  title: 'Dining',
+                },
+                {
+                  action: 'mdi-school',
+                  items: [{ title: 'List Item' }],
+                  title: 'Education',
+                },
+                {
+                  action: 'mdi-run',
+                  items: [{ title: 'List Item' }],
+                  title: 'Family',
+                },
+                {
+                  action: 'mdi-bottle-tonic-plus',
+                  items: [{ title: 'List Item' }],
+                  title: 'Health',
+                },
+                {
+                  action: 'mdi-content-cut',
+                  items: [{ title: 'List Item' }],
+                  title: 'Office',
+                },
+                {
+                  action: 'mdi-tag',
+                  items: [{ title: 'List Item' }],
+                  title: 'Promotions',
+                },
+              ],
         }},
 
         mounted() {

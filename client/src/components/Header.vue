@@ -2,7 +2,7 @@
     <div class="Header">
         <v-navigation-drawer
                 v-model="drawer"
-                v-if=leftMenu
+                v-if=!leftMenu
                 app
         >
             <tree-view></tree-view>
@@ -20,22 +20,12 @@
             </v-toolbar-items>
 
             <v-toolbar-title>
-                Naprawy
+                cmms
                 {{Name}}
             </v-toolbar-title>
 
             <v-spacer></v-spacer>
             <span></span>
-            <v-btn
-                    v-if="automatyk"
-                    depressed
-                    disabled
-                    color="red"
-                    :to="{
-                    name: 'newfailure'
-                    }">
-                Nowa awaria
-            </v-btn>
             <div class="mx-2">
                 <v-btn mx="11"
                        v-if="automatyk"
@@ -146,7 +136,7 @@
                             this.leftMenu = true;
                             break;
                         default:
-                            this.leftMenu = false;
+                            this.leftMenu = true; //false
                     }
                     this.avatar = this.$store.getters.user.US_Name.charAt(0) + this.$store.getters.user.US_SUER_NAME.charAt(0)
             }

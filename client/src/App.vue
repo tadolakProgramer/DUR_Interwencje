@@ -15,7 +15,7 @@
                 color="primary"
                 app
         >
-            <span class="white--text">&copy; 2020</span>
+            <span class="white--text">&copy; 2021</span>
         </v-footer>
     </v-app>
 </template>
@@ -46,3 +46,7 @@
         }
     }
 </script>
+
+<style>
+
+</style>
